@@ -48,7 +48,7 @@ Data from the Coffee Quality Database was first cleaned by removing columns with
 
 Afterwards, the formats of the data values in some of the columns were altered for better processing. The moisture column values were stripped of the '%' sign, converted to a float, and scaled. Similarly, the formats of the data values in the Category One Defects and Category Two Defects columns were stripped of the words and converted to integers. Country names were renamed for better testing in model creation. Column names were also renamed to move the whitespaces between the words for better processing in model testing.
 
-Outliers were identified by looking at the distribution of quality scores and the descriptive statistics of the quality scores. There is a gap between the lower and higher scores which contribute to the skewness of the distribution. Data points with a quality score of 0 were removed. Despite this, there remains some skewness as there is a gap between the lower and higher scores. Because there are a significiant number of scores on each end, I did not remove any of these points.
+Outliers were identified by looking at the distribution of quality scores and the descriptive statistics of the quality scores. The distribution graph shows that the data is skewed to the left or negatively skewed. Data points with a quality score of 0 were removed. Despite this, there remains some skewness as there is a gap between the lower and higher scores. Because the lower quality scores are important for understanding the factors that contribute to coffee quality, I did not remove any of these points to normalize the distribution.
 
 <p align="center">
   <img src="./images/distquality.png" title="Distribution of Quality Scores">
@@ -57,7 +57,9 @@ Outliers were identified by looking at the distribution of quality scores and th
 Temperature data gathered from the World Bank was merged into dataframe using Country as the key. In later steps, it was removed as a feature variable as it was considered not significant in the model according to the p values in the OLS regression analysis. 
 
 
-## Linear Regression Model Preparation and Testing
+## Linear Regression Model Preparation and Creation
+
+A training dataset for creating the linear regression model and a testing dataset was created by taking 90% of the data points for training and 10% for testing.
 
 The variables used in the linear regression model testing were: quality score (as target variable), country of origin, temperature, aroma, flavor, acidity, aftertaste, body, balance, uniformity, sweetness, clean cup, cupper points, and processing method. These variables were chosen for the testing because of the completion and cleanliness of the data available as well as their relationships to the target variables.
 
@@ -82,6 +84,46 @@ The scatter matrix below show another way to view the relationship between pairs
   <img src="./images/brief_scatter_matrix.png" title="Subset of the Correlation Scatter Matrix">
 </p>
 
-The observations from these diagrams were used to create interaction variables for testing. Interaction variables created were: aroma x flavor, aroma x cupper points, flavor x cupper points, and flavor x aftertaste. 
+The observations from these diagrams were used to create interaction variables for linear regression. Interaction variables created were: aroma x flavor, aroma x cupper points, flavor x cupper points, and flavor x aftertaste. Dummy variables were created for the categorical varables: Category One Defects, Category Two Defects, Country of Origin, and Temperature, and concatenated to the main dataframe.
 
-Dummy variables were created for the categorical varables: Category One Defects, Category Two Defects, Country of Origin, and Temperature.
+The StatsModel package was used for linear regression model analysis. The initial model was created with one feature variable, Aroma, which produced a R-squared value and an adjusted R-squared of 0.467. The p-value for Aroma was 0 with a coefficient of 0.6271. 
+
+<p align="center">
+  <img src="./images/1st_Test_Model.png" title="Initial Linear Regression Model with One Independent Variable">
+</p>
+
+After creating a few initial models by adding in the variables one by one, eventually I decided to plug in all of the independent variables including the dummy variables, which produced the below model. 
+
+<p align="center">
+  <img src="./images/multi_reg_model1.png" title="Initial Linear Regression Model with Multiple Independent Variables">
+</p>
+
+This model showed a R-squared value and adjusted R-squared value of 1, with the p-values for all independent variables as 0, which seemed too good to be true. I reviewed the distribution of the residuals, which showed a positively skewed distribution. 
+
+<p align="center">
+  <img src="./images/resid1_1.png" title="Residuals Distribution of 1st Multiple Linear Regression Model">
+</p>
+
+
+<p align="center">
+  <img src="./images/qqresid1_1.png" title="Residuals QQ Plot for 1st Multiple Linear Regression Model">
+</p>
+
+Two of the assumptions for linear regression are that the errors have constant variance and that the errors are normally distributed. In this case, residuals are not normally distributed which indicate that there is heteroskedacity or irregular variability in the residuals. Because of this and due to a concern that there may be multicolinearity from the high correlations between pairs in the correlation graphs, I decided to play wiht the variables in the linear regression model for a better model. Below is the final model I settled on but I think this can be further improved.
+
+<p align="center">
+  <img src="./images/multi_reg_model2.png" title="Final Linear Regression Model with Multiple Independent Variables">
+</p>
+
+The residuals distribution for this model was more normally distributed compared to the residuals distribution for the initial multiple regression model which showed improvement in the reliability of the model compared to the initial version. 
+
+<p align="center">
+  <img src="./images/resid2_1.png" title="Residuals Distribution of Final Multiple Linear Regression Model">
+</p>
+
+
+<p align="center">
+  <img src="./images/qqresid2_1.png" title="Residuals QQ Plot for 1st Multiple Linear Regression Model">
+</p>
+
+
