@@ -39,7 +39,7 @@ In order to interpret the results from the analysis, I wanted to first understan
 * Amount of Category 2 Defects
     * To qualify as specialty grade coffee, there should be 5 or less Category 2 defects
 
-More information can be found on the Speciality Coffee Association's <a href: https://sca.coffee/research/coffee-standards>website</a>.
+More information can be found on the Speciality Coffee Association's <a href=https://sca.coffee/research/coffee-standards>website</a>.
 
 
 ## Data Collection and Analysis
@@ -51,7 +51,7 @@ Afterwards, the formats of the data values in some of the columns were altered f
 Outliers were identified by looking at the distribution of quality scores and the descriptive statistics of the quality scores. There is a gap between the lower and higher scores which contribute to the skewness of the distribution. Data points with a quality score of 0 were removed. Despite this, there remains some skewness as there is a gap between the lower and higher scores. Because there are a significiant number of scores on each end, I did not remove any of these points.
 
 <p align="center">
-  <img src="./distquality.png" title="Distribution of Quality Scores">
+  <img src="./images/distquality.png" title="Distribution of Quality Scores">
 </p>
 
 Temperature data gathered from the World Bank was merged into dataframe using Country as the key. In later steps, it was removed as a feature variable as it was considered not significant in the model according to the p values in the OLS regression analysis. 
@@ -73,13 +73,13 @@ Before testing, the correlation between pairs of variables was analyzed using a 
 In the heatmap below, the black color range indicate positive correlation and the red color range indicate negative correlation. The darker the color, the higher the correlation in the pair. The lighter the color, the lower the correlation in the pair.
 
 <p align="center">
-  <img src="./heatmap.png" title="Correlation Heatmap">
+  <img src="./images/heatmap.png" title="Correlation Heatmap">
 </p>
 
 The scatter matrix below show another way to view the relationship between pairs of variables. There seem to be linear relationships between quality score and cupper points, quality score and flavor, quality score and aroma, aroma and cupper points, aroma and aftertaste, and flavor and aftertaste.
 
 <p align="center">
-  <img src="./brief_scatter_matrix.png" title="Subset of the Correlation Scatter Matrix">
+  <img src="./images/brief_scatter_matrix.png" title="Subset of the Correlation Scatter Matrix">
 </p>
 
 The observations from these diagrams were used to create interaction variables for testing. Interaction variables created were: aroma x flavor, aroma x cupper points, flavor x cupper points, and flavor x aftertaste. 
