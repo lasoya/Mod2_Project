@@ -88,10 +88,6 @@ The observations from these diagrams were used to create interaction variables f
 
 The StatsModel package was used for linear regression model analysis. The initial model was created with one feature variable, Aroma, which produced a R-squared value and an adjusted R-squared of 0.467. The p-value for Aroma was 0 with a coefficient of 0.6271. 
 
-<p align="center">
-  <img src="./images/1st_Test_Model.png" title="Initial Linear Regression Model with One Independent Variable">
-</p>
-
 After creating a few initial models by adding in the variables one by one, eventually I decided to plug in all of the independent variables including the dummy variables, which produced the below model. 
 
 <p align="center">
