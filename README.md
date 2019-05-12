@@ -126,4 +126,13 @@ The residuals distribution for this model was more normally distributed compared
   <img src="./images/qqresid2_1.png" title="Residuals QQ Plot for 1st Multiple Linear Regression Model">
 </p>
 
+The QQ plot shows that there is still variance that is not explained by the model per the tails at each end that does not fit along the line. Therefore predictions at those ends will not be accurate. This may be due to some outliers remaining in the dataset. 
 
+
+## Conclusion & Next Steps
+
+This project helped me practice the steps in creating and analyzing a multiple linear regression model. Next steps for this project would be:
+
+* Add additional data with features such as altitude coffee was grown, temperature where coffee was grown, soil quality
+    * Insights into the relationship between these features and coffee quality would be more useful for coffee producers to hone in on what they can do to increase coffee quality, leading to increasing sales
+    * This dataset did contain data on altitude, however, the units used were varied or missing. Therefore, the column was ultimately dropped but it would be great to look further into this parameter.
